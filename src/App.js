@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
-import List from './List/'
-import Form from './Form/'
+
+import Todo from './ToDo/'
 
 export default class App extends Component {
   constructor(props) {
@@ -48,10 +48,14 @@ export default class App extends Component {
 
   }
 
-  addToDo = (item) => {
+
+  handleFormSubmit = evt => {
+    evt.preventDefault();
+    let value = evt.target.todo.value
     const todoArr = this.state.toDo
-    todoArr.push({title: item, color: this.randomColor(Math.floor(Math.random() * 10))})
+    todoArr.push({title: value, color: this.randomColor(Math.floor(Math.random() * 10))})
     this.setState({todo: todoArr})
+    evt.target.todo.value = ''
   }
 
   remove = () => {
@@ -61,9 +65,7 @@ export default class App extends Component {
   render() {
     return (
       <div className="center">
-        <h2>To Do List</h2>
-        <List toDo={this.state.toDo} />
-        <Form addToDo={this.addToDo} />
+        <Todo toDo={this.state.toDo} handleFormSubmit={this.handleFormSubmit} />
       </div>
     )
   }
