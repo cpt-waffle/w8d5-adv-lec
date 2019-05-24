@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import './App.css'
-
 import Todo from './ToDo/'
+import Done from './Done/'
 
 export default class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      x: 'test',
       toDo: [
         {title: 'buy milk', color: 'red'},
         {title: 'wash clothes', color: 'green'},
@@ -19,28 +21,28 @@ export default class App extends Component {
 
 
   randomColor = num => {
-    if ( num == 1 )
+    if ( num === 1 )
       return 'green'
 
-    else if (num == 2)
+    else if (num === 2)
       return 'orange'
 
-    else if (num == 3)
+    else if (num === 3)
       return 'blue'
 
-    else if (num == 5)
+    else if (num === 5)
       return 'green'
 
-    else if (num == 6)
+    else if (num === 6)
       return 'yellow'
 
-    else if (num == 7)
+    else if (num === 7)
       return 'navy'
 
-    else if (num == 8)
+    else if (num === 8)
       return 'purple'
 
-    else if (num == 9)
+    else if (num === 9)
       return 'silver'
 
     else
@@ -65,8 +67,17 @@ export default class App extends Component {
   render() {
     return (
       <div className="center">
-        <Todo toDo={this.state.toDo} handleFormSubmit={this.handleFormSubmit} />
+        <Router>
+          <Link to="/">ToDo</Link>
+          <Link to="/done">Done</Link>
+
+          <Route exact path="/" component={() => <Todo toDo={this.state.toDo} handleFormSubmit={this.handleFormSubmit} />} />
+          <Route path="/done" component={() =>  <Done x={this.state.x}/> } />
+
+        </Router>
       </div>
     )
   }
 }
+
+//          <Todo toDo={this.state.toDo} handleFormSubmit={this.handleFormSubmit} />
